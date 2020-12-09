@@ -17,6 +17,7 @@
 <form action="join.do" method="post">
 <p>아이디 : <br />
 <c:if test="${erroes.id }">ID를 입력하세요 </c:if>
+<c:if test="${erroes.duplicateId }">이미 사용중인 아이디입니다 </c:if>
 <input type="text" name="id" value="${param.id}" /></p>
 <p>이름 : <br />
 <input type="text" name="name" value="${param.name}" /></p>

@@ -5,6 +5,7 @@ import java.sql.SQLException;
 
 import jdbc.ConnectionProvider;
 import jdbc.JdbcUtil;
+import member.dao.MemberDao;
 import member.model.Member;
 
 public class JoinService {
@@ -30,7 +31,7 @@ public class JoinService {
 		member.setName(joinReq.getName());
 		member.setPw(joinReq.getPw());
 		
-		memberDao.insert(member);
+		memberDao.insert(con, member);
 		con.commit();
 	} catch (SQLException e) {
 		JdbcUtil.rollback(con);

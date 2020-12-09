@@ -6,11 +6,14 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import member.service.DuplicateIdException;
 import member.service.JoinRequest;
+import member.service.JoinService;
 import mvc.command.CommandHandler;
 
 public class JoinHandler implements CommandHandler {
 	private static final String FORM_VIEW = "joinForm";
+	private JoinService joinService = new JoinService();
 
 	@Override
 	public String process(HttpServletRequest req, HttpServletResponse res) throws Exception {
@@ -42,15 +45,15 @@ public class JoinHandler implements CommandHandler {
 		 return FORM_VIEW; 
 		 } 
 		 
-		 /*try { 
-		 *joinService.join(joinReq);
-		 * return "joinSuccess"; 
-		 * } catch (DuplicateIdException e) {
-		 * errors.put("duplicateId", Boolean.TRUE); 
-		 * return FORM_VIEW;
-		 *  }
-		 */
-		return null;
+			try {
+				joinService.join(joinReq);
+				return "joinSuccess";
+			} catch (DuplicateIdException e) {
+				errors.put("duplicateId", true);
+				return FORM_VIEW;
+			}
+
+		 
 	}
 
 	private String processForm(HttpServletRequest req, HttpServletResponse res) {
