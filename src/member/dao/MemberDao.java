@@ -63,4 +63,23 @@ public class MemberDao {
 			JdbcUtil.close(pstmt);
 		}
 	}
+	
+	public void update(Connection con, Member member) throws Exception {
+		String sql = "UPDATE member SET name=?, password=? WHERE memberid=?";
+		PreparedStatement pstmt = null;
+		try {
+
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, member.getName());
+			pstmt.setString(2, member.getPw());
+			pstmt.setString(3, member.getId());
+
+			pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		} finally {
+			JdbcUtil.close(pstmt);
+		}
+	}
 }

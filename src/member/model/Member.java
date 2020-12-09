@@ -41,4 +41,12 @@ public class Member {
 		this.pw = pw;
 	}
 
+	public boolean matchPassword(String pwd) {
+		return pw.equals(pwd);
+	}
+	
+	public void changePassword(String newPwd) {
+		this.pw = newPwd;
+	}
+	
 }

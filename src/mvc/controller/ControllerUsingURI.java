@@ -111,8 +111,11 @@ public class ControllerUsingURI extends HttpServlet {
 			e.printStackTrace();
 		}
 		
+		if(view != null) {
+		
 		request.getRequestDispatcher(prefix + view + suffix)
 			.forward(request, response);
+		}
 	}
 
 }
