@@ -64,7 +64,7 @@ public class MemberDao {
 		}
 	}
 	
-	public void update(Connection con, Member member) throws Exception {
+	public void update(Connection con, Member member) throws SQLException {
 		String sql = "UPDATE member SET name=?, password=? WHERE memberid=?";
 		PreparedStatement pstmt = null;
 		try {

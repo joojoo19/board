@@ -3,8 +3,6 @@ package member.service;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-import org.w3c.dom.ranges.RangeException;
-
 import jdbc.ConnectionProvider;
 import jdbc.JdbcUtil;
 import member.dao.MemberDao;
@@ -27,7 +25,7 @@ public class ChangePasswordService {
 			if(!member.matchPassword(curPwd)) {
 				throw new InvalidPasswordException();
 			}
-			member.matchPassword(newPwd);
+			member.changePassword(newPwd);
 			memberDao.update(con, member);
 			con.commit();
 		} catch (SQLException e) {
