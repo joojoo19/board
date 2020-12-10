@@ -7,3 +7,8 @@ CREATE TABLE member (
  
  
  SELECT * FROM member;
+ 
+ 
+ UPDATE member SET password='sdf' WHERE memberid='asd';
+ 
+ rollback;
