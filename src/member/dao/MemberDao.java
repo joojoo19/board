@@ -82,4 +82,19 @@ public class MemberDao {
 			JdbcUtil.close(pstmt);
 		}
 	}
+	public void delete(Connection con, Member member) throws SQLException {
+		String sql = "DELETE member WHERE memberid=?";
+		PreparedStatement pstmt = null;
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, member.getId());
+
+			pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		} finally {
+			JdbcUtil.close(pstmt);
+		}
+	}
 }

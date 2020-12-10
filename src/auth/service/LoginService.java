@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import jdbc.ConnectionProvider;
 import member.dao.MemberDao;
 import member.model.Member;
+import member.service.MemberNotFoundException;
 
 public class LoginService {
 	private MemberDao memberDao = new MemberDao();
@@ -14,7 +15,7 @@ public class LoginService {
 		try (Connection con = ConnectionProvider.getConnection()){
 			Member member = memberDao.selectById(con, id);
 			if(member == null) {
-				throw new LoginFailException();
+				throw new MemberNotFoundException();
 			}
 			if(!member.matchPassword(pw)) {
 				throw new LoginFailException();

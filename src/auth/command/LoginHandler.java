@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import auth.service.LoginFailException;
 import auth.service.LoginService;
 import auth.service.User;
+import member.service.MemberNotFoundException;
 import mvc.command.CommandHandler;
 
 public class LoginHandler implements CommandHandler {
@@ -49,7 +50,11 @@ public class LoginHandler implements CommandHandler {
 			return null;
 		} catch (LoginFailException e) {
 			e.printStackTrace();
-			errors.put("idOrPwNotMatch", Boolean.TRUE);
+			errors.put("pwNotMatch", Boolean.TRUE);
+			return FORM_VIEW;
+		}catch (MemberNotFoundException e) {
+			e.printStackTrace();
+			errors.put("idNotMatch", Boolean.TRUE);
 			return FORM_VIEW;
 		}
 	}
