@@ -6,7 +6,6 @@ public class ArticleContent {
 	
 	
 	public ArticleContent(Integer number, String content) {
-		super();
 		this.number = number;
 		this.content = content;
 	}

@@ -6,47 +6,104 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import article.model.Article;
+import article.model.Writer;
 import jdbc.JdbcUtil;
 
 public class ArticleDao {
-	
-	public Article insert(Connection con, Article article) throws SQLException {
-		String sql = "INSERT INTO article (writer_id, writer_name, title, regdate, moddate, read_cnt) "
-				     + "VALUES (?, ?, ?, ?, ?, ?)";
-		PreparedStatement pstmt = null;
+
+	public int selectCount(Connection con) throws SQLException {
 		Statement stmt = null;
 		ResultSet rs = null;
 		try {
-			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, article.getWriter().getId());
-			pstmt.setString(2, article.getWriter().getName());
-			pstmt.setString(3, article.getTitle());
-			pstmt.setTimestamp(4, toTimestamp(article.getRegDate()));
-			pstmt.setTimestamp(5, toTimestamp(article.getModifiedDate()));
-			int insertedCount = pstmt.executeUpdate();
-			
-			if(insertedCount > 0) {
-				stmt = con.createStatement();
-				rs = stmt.executeQuery("SELECT last_insert_id() FROM article");
-				if(rs.next()) {
-					Integer newNum = rs.getInt(1);
-					return new Article(newNum, article.getWriter(), article.getTitle(), 
-							           article.getRegDate(), article.getModifiedDate(), 0);
-				}
+			stmt = con.createStatement();
+			rs = stmt.executeQuery("SELECT COUNT(*) FROM article");
+			if (rs.next()) {
+				return rs.getInt(1);
 			}
-			return null;
+			return 0;
 		} finally {
 			JdbcUtil.close(rs);
 			JdbcUtil.close(stmt);
+		}
+	}
+
+	public List<Article> select(Connection con, int startRow, int size) throws SQLException {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = "SELECT * FROM article WHERE ROWNUM BETWEEN ? and ? ORDER BY article_no DESC";
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, size);
+
+			rs = pstmt.executeQuery();
+			List<Article> result = new ArrayList<>();
+			while (rs.next()) {
+				result.add(convertArticle(rs));
+			}
+			return result;
+		} finally {
+			JdbcUtil.close(rs);
 			JdbcUtil.close(pstmt);
 		}
 	}
 
-	private Timestamp toTimestamp(Date date) {
-		return new Timestamp(date.getTime());
+	private Article convertArticle(ResultSet rs) throws SQLException {
+		return new Article(rs.getInt("article_no"), new Writer(rs.getString("writer_id"), rs.getString("writer_name")),
+				rs.getString("title"), toDate(rs.getTimestamp("regdate")), toDate(rs.getTimestamp("moddate")),
+				rs.getInt("read_cnt"));
+
 	}
+
+	private Date toDate(Timestamp timestamp) {
+		return new Date(timestamp.getTime());
+	}
+
+	public Article insert(Connection con, Article article) throws SQLException {
+		String sql = "INSERT INTO article "
+				+ "(writer_id, writer_name, title,"
+				+ " regdate, moddate, read_cnt) "
+				+ "VALUES (?, ?, ?, SYSDATE, SYSDATE, 0)";
 		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			pstmt = con.prepareStatement(sql,
+							new String[] {"article_no", "regdate", "moddate"});
+			
+			pstmt.setString(1, article.getWriter().getId());
+			pstmt.setString(2, article.getWriter().getName());
+			pstmt.setString(3, article.getTitle());
+			
+			int cnt = pstmt.executeUpdate();
+			
+			if (cnt == 1) {
+				rs = pstmt.getGeneratedKeys();
+				int key = 0;
+				Date regDate = null;
+				Date modDate = null;
+				if (rs.next()) {
+					key = rs.getInt(1);
+					regDate = rs.getTimestamp(2);
+					modDate = rs.getTimestamp(3);
+				}
+				return new Article(key,
+						article.getWriter(),
+						article.getTitle(),
+						regDate,
+						modDate,
+						0);
+			} else {
+				return null;
+			}
+		} finally {
+			JdbcUtil.close(rs, pstmt);
+		}
+	}
+
 }

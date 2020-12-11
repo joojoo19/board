@@ -28,6 +28,7 @@ public class WriteArticleService {
 			}
 			ArticleContent content = new ArticleContent(savedArticle.getNumber(), req.getContent());
 			ArticleContent savedContent = contentDao.insert(con, content);
+
 			if(savedContent == null) {
 				throw new RuntimeException("fail to insert article_content");
 			}
@@ -47,7 +48,6 @@ public class WriteArticleService {
 	}
 
 	private Article toArticle(WriteRequest req) {
-		Date now = new Date();
-		return new Article(null, req.getWriter(), req.getTitle(), now, now, 0);
+		return new Article(null, req.getWriter(), req.getTitle(), null, null, 0);
 	}
 }

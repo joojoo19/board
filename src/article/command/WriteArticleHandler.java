@@ -9,20 +9,20 @@ import article.model.*;
 import mvc.command.CommandHandler;
 
 public class WriteArticleHandler implements CommandHandler {
-	private static final String FORM_VIEW = "newSrticleForm";
+	private static final String FORM_VIEW = "newArticleForm";
 	private WriteArticleService writeService = new WriteArticleService();
-	
-@Override
-public String process(HttpServletRequest req, HttpServletResponse res) throws Exception {
-	if(req.getMethod().equalsIgnoreCase("GET")) {
-		return processForm(req, res);
-	} else if(req.getMethod().equalsIgnoreCase("POST")) {
-		return processSubmit(req, res);
-	} else {
-		res.sendError(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
-		return null;
+
+	@Override
+	public String process(HttpServletRequest req, HttpServletResponse res) throws Exception {
+		if (req.getMethod().equalsIgnoreCase("GET")) {
+			return processForm(req, res);
+		} else if (req.getMethod().equalsIgnoreCase("POST")) {
+			return processSubmit(req, res);
+		} else {
+			res.setStatus(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
+			return null;
+		}
 	}
-}
 
 private String processSubmit(HttpServletRequest req, HttpServletResponse res) {
 	Map<String, Boolean> errors = new HashMap<>();
@@ -37,12 +37,15 @@ private String processSubmit(HttpServletRequest req, HttpServletResponse res) {
 	}
 	
 	int newArticleNO = writeService.write(writeReq);
-	req.setAttribute("newArticleNo", newArticleNo);
+	req.setAttribute("newArticleNo", newArticleNO);
 	
-	
-			
-
-private String processForm(HttpServletRequest req, HttpServletResponse res) {
-	return FORM_VIEW;
+	return "newArticleSuccess";
 }
+	private WriteRequest createWriteRequest(User user, HttpServletRequest req) {
+		return new WriteRequest(new Writer(user.getId(), user.getName()), req.getParameter("title"), req.getParameter("content"));
+}
+
+	private String processForm(HttpServletRequest req, HttpServletResponse res) {
+		return FORM_VIEW;
+	}
 }

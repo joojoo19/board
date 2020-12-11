@@ -15,8 +15,8 @@ public class ArticleContentDao {
 			pstmt = con.prepareStatement(sql);
 			pstmt.setLong(1, content.getNumber());
 			pstmt.setString(2, content.getContent());
-			int insertedCount = pstmt.executeUpdate();
-			if (insertedCount > 0) {
+			int cnt = pstmt.executeUpdate();
+			if (cnt == 1) {
 				return content;
 			} else {
 				return null;
