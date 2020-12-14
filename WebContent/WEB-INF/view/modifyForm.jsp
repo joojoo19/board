@@ -15,17 +15,22 @@
 </head>
 <body>
 <div class="container">
-<h1>로그인</h1>
-<form action="login.do" method="post">
-<p>아이디 : <input type="text" name="id" value="${param.id}" />
-<c:if test="${errors.id }">아이디를 입력하세요</c:if>
-<c:if test="${errorspPwNotMatch }">암호가 일지하지 않습니다</c:if>
-<c:if test="${errors.idNotMatch }">일치하는 아이디가 없습니다   <a href="join.do">[회원가입하기]</a></c:if>
+<h1>게시글 수정</h1>
+<form action="modify.do" method="POST">
+<p>
+<input type="hidden" name="no" value="${modReq.articleNumber}">
+번호 : ${modReq.articleNumber}
 </p>
-<p>암호 : <input type="password" name="pw" />
-<c:if test="${errors.pw }">암호를 입력하세요</c:if>
+<p>
+제목 : <br />
+<input type="text" name="title" value="${modReq.title}" />
+<c:if test="${errors.title }">제목을 입력하세요</c:if>
 </p>
-<input type="submit" value="로그인" />
+<p>
+내용 : <br />
+<textarea name="content" cols="30" rows="5" wrap="hard">${modReq.content }</textarea>
+</p>
+<input type="submit" value="글 수정" />
 </form>
 </div>
 </body>

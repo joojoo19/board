@@ -34,7 +34,7 @@
 <c:forEach var="article" items="${articlePage.content }">
 <tr>
 <td>${article.number }</td>
-<td><a href="read.do?no=${article.number}&pageNo=&${articlePage.currentPage }">
+<td><a href="read.do?no=${article.number}&pageNo=${articlePage.currentPage }">
 <c:out value="${article.title }"/>
 </a></td>
 <td>${article.writer.name }</td>

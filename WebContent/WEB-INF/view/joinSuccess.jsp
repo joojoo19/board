@@ -15,5 +15,6 @@
 </head>
 <body>
 <h1>${param.name }님, 회원가입에 성공했습니다.</h1>
+	<a href="login.do">[로그인하기]</a>
 </body>
 </html>

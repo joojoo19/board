@@ -32,5 +32,6 @@ INSERT INTO article (writer_id, writer_name, title, regdate, moddate, read_cnt)
      SELECT * FROM article ORDER BY article_no DESC limit 2, 1;
      
      SELECT * FROM article WHERE ROWNUM BETWEEN 10 and 1;
-    
      
+ SELECT * FROM (SELECT article_no, title, writer_name, ROW_NUMBER() OVER (ORDER BY article_no DESC) rn FROM article);
+ WHERE rn;  

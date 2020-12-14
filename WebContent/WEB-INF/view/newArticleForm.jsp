@@ -24,10 +24,11 @@
 			<p>
 				제목 : <input type="text" name="title" value="${param.title}" />
 				<c:if test="${errors.title }">제목을 입력하세요</c:if>
+				<br />
 			</p>
 			<p>
 				내용 : <br />
-				<textarea name="content" cols="30" rows="5">${param.content }</textarea>
+				<textarea name="content" cols="30" rows="5" wrap="hard">${param.content }</textarea>
 				<br />
 
 			</p>

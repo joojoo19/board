@@ -14,19 +14,9 @@
 <title>Insert title here</title>
 </head>
 <body>
-<div class="container">
-<h1>로그인</h1>
-<form action="login.do" method="post">
-<p>아이디 : <input type="text" name="id" value="${param.id}" />
-<c:if test="${errors.id }">아이디를 입력하세요</c:if>
-<c:if test="${errorspPwNotMatch }">암호가 일지하지 않습니다</c:if>
-<c:if test="${errors.idNotMatch }">일치하는 아이디가 없습니다   <a href="join.do">[회원가입하기]</a></c:if>
-</p>
-<p>암호 : <input type="password" name="pw" />
-<c:if test="${errors.pw }">암호를 입력하세요</c:if>
-</p>
-<input type="submit" value="로그인" />
-</form>
-</div>
+<h1>게시글을 수정했습니다</h1>
+<br />
+<a href="${pageContext.request.contextPath }/article/list.do">[게시글 목록 보기]</a>
+<a href="${pageContext.request.contextPath }/article/read.do?no=${modReq.articleNumber}">[게시글 내용 보기]</a>
 </body>
 </html>
