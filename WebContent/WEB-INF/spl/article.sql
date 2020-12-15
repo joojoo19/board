@@ -35,3 +35,19 @@ INSERT INTO article (writer_id, writer_name, title, regdate, moddate, read_cnt)
      
  SELECT * FROM (SELECT article_no, title, writer_name, ROW_NUMBER() OVER (ORDER BY article_no DESC) rn FROM article);
  WHERE rn;  
+ 
+ CREATE TABLE board_article (
+    article_no NUMBER GENERATED AS IDENTITY,
+    writer_id VARCHAR2(50) NOT NULL,
+    writer_name VARCHAR2(50) NOT NULL,
+    title VARCHAR2(255) NOT NULL,
+    regdate DATE NOT NULL,
+    moddate DATE NOT NULL,
+    read_cnt NUMBER,
+    PRIMARY KEY (article_no)
+);
+
+CREATE TABLE board_article_content (
+    article_no NUMBER PRIMARY KEY,
+    content VARCHAR2(4000)
+);

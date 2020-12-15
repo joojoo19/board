@@ -11,7 +11,13 @@ import jdbc.JdbcUtil;
 import oracle.net.aso.c;
 
 public class ArticleContentDao {
-
+	public int delete(Connection con, int removeNo) throws SQLException {
+		String sql = "DELETE article_content WHERE article_no = ?";
+		try (PreparedStatement pstmt = con.prepareStatement(sql)) {
+			pstmt.setInt(1, removeNo);
+			return pstmt.executeUpdate();
+		}
+	}
 	public int update(Connection con, int no, String content) throws SQLException {
 		String sql = "UPDATE article_content SET content = ? WHERE article_no = ?";
 		try(PreparedStatement pstmt = con.prepareStatement(sql)) {

@@ -10,15 +10,21 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
+<script>
+$(function() {
+	$("#btn-remove").click(function() {
+		alert("삭제 하시겠습니까?");
+	});
+});
+</script>
 <title>Insert title here</title>
 </head>
 <body>
 <div class="container">
-<h1>게시글 수정</h1>
-<form action="modify.do" method="POST">
+<h1>게시글 삭제</h1>
+<form action="remove.do" method="POST">
 <p>
-
+<input type="hidden" name="removeNo" value="${modReq.articleNumber}">
 번호 : ${modReq.articleNumber}
 </p>
 <p>
@@ -30,7 +36,7 @@
 내용 : <br />
 <textarea name="content" cols="30" rows="5" wrap="hard">${modReq.content }</textarea>
 </p>
-  <button class="btn btn-danger" id="remove-btn" name="removeNo" value="${modReq.articleNumber}">삭제</button>
+  <button class="btn btn-danger" id="btn-remove" name="removeNo" value="${modReq.articleNumber}">삭제</button>
 </form>
 </div>
 </body>

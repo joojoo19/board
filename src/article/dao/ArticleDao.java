@@ -16,7 +16,14 @@ import jdbc.JdbcUtil;
 import member.model.Member;
 
 public class ArticleDao {
-
+	public int delete(Connection con, int removeNo) throws SQLException {
+		String sql = "DELETE article WHERE article_no = ?";
+		try (PreparedStatement pstmt = con.prepareStatement(sql)) {
+			pstmt.setInt(1, removeNo);
+			return pstmt.executeUpdate();
+		}
+	}
+	
 	public int update(Connection con, int no, String title) throws SQLException {
 		String sql = "UPDATE article SET title = ?, moddate = SYSDATE WHERE article_no = ?";
 		try (PreparedStatement pstmt = con.prepareStatement(sql)) {

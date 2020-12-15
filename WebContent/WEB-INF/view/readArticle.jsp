@@ -46,6 +46,9 @@
 </td>
 </tr>
 </table>
+<!-- 댓글 폼 로그인한 사람만 -->
+    <u:replyForm articleNo="${articleData.article.number }"/>
+
 </div>
 </body>
 </html>

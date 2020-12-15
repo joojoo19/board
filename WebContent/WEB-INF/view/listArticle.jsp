@@ -18,7 +18,7 @@
 <h1>게시글 목록</h1>
 <table border="1">
 <tr>
-<td colspan="4"><a href="write.do">[게시글쓰기]</a></td>
+<td colspan="4"><a href="write.do">[게시글쓰기]</a>	<a href="/myboard/login.do" style="text-align:right;">[로그인하기]</a></td>
 </tr>
 <tr>
 	<td>번호</td>

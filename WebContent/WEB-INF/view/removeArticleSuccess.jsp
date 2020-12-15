@@ -20,7 +20,7 @@
 <body>
 	<div class="container">
 		<h1>게시글이 삭제되었습니다</h1>
-		<a href="article/list.do">[게시글보기]</a>
+		<a href="list.do">[게시글보기]</a>
 	</div>
 </body>
 </html>
