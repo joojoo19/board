@@ -15,24 +15,36 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://kit.fontawesome.com/a076d05399.js"></script>
 
 <title>Insert title here</title>
 </head>
 <body>
+<u:navbar/>
 	<div class="container">
 
-<u:isLogin>
-	${authUser.name }님, 안녕하세요.
-		<a href="article/write.do">[게시글쓰기]</a>
-				<a href="article/list.do">[게시글보기]</a>
-	<a href="logout.do">[로그아웃하기]</a>
-			<a href="changePwd.do">[암호변경하기]</a>
-    <a href="removeMember.do">[회원 탈퇴하기]</a>  
-		</u:isLogin>
-	<u:notLogin>
-			<a href="join.do">[회원가입하기]</a>
-			<a href="login.do">[로그인하기]</a>
-		</u:notLogin>
+<div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img src="IMG_20190321_122012.jpg" class="d-block w-100" alt="...">
+    </div>
+    <div class="carousel-item">
+      <img src="IMG_20190321_120537.jpg" class="d-block w-100" alt="...">
+    </div>
+    <div class="carousel-item">
+      <img src="1553174654317.jpg" class="d-block w-100" alt="...">
+    </div>
+  </div>
+  <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
+</div>
+
 	</div>
 </body>
 </html>

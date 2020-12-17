@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
+<%@ taglib prefix="u" tagdir="/WEB-INF/tags"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,26 +14,45 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
+<script src="https://kit.fontawesome.com/a076d05399.js"></script>
 <title>Insert title here</title>
 </head>
 <body>
+	<u:navbar />
 	<div class="container">
-	<h1>게시판 글쓰기</h1>
-		<form action="write.do" method="post">
-			<p>
-				제목 : <input type="text" name="title" value="${param.title}" />
-				<c:if test="${errors.title }">제목을 입력하세요</c:if>
-				<br />
-			</p>
-			<p>
-				내용 : <br />
-				<textarea name="content" cols="30" rows="5" wrap="hard">${param.content }</textarea>
-				<br />
 
-			</p>
-			<input type="submit" value="새 글 등록" />
-		</form>
+		<div class="row">
+			<div class="col-3">
+			</div>
+			<div class="col-6">
+
+					<h3>글쓰기</h3>
+					<br />
+					<form action="${root}/article/write.do" method="post">
+						<div class="form-group">
+							<label for="input1-title">제목</label> <input type="text"
+								class="form-control" id="input1-title" name="title"
+								value="${param.title}">
+						</div>
+
+						<div class="form-group">
+							<label for="input2-content">내용</label>
+							<textarea cols="30" rows="9" class="form-control"
+								id="input2-content" name="content">${param.content } </textarea>
+						</div>
+
+
+						<div class="text-right">
+							<button type="submit" class="btn btn-primary">글등록</button>
+						</div>
+					</form>
+
+			</div>
+			<div class="col-3">
+
+			</div>
+		</div>
+
 	</div>
 </body>
 </html>

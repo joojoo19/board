@@ -51,3 +51,21 @@ CREATE TABLE board_article_content (
     article_no NUMBER PRIMARY KEY,
     content VARCHAR2(4000)
 );
+
+
+CREATE TABLE reply(
+replyid NUMBER GENERATED AS IDENTITY,
+memberid VARCHAR2(50) NOT NULL,
+article_no NUMBER NOT NULL,
+body VARCHAR2(1000) NOT NULL,
+regdate DATE NOT NULL,
+moddate DATE,
+PRIMARY KEY (replyid)
+);
+
+SELECT
+    *
+FROM reply;
+rollback;
+
+SELECT replyid, memberid, article_no, body, regdate FROM reply WHERE article_no=48 ORDER BY DESC;
